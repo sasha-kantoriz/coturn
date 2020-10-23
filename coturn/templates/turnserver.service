@@ -1,0 +1,18 @@
+[Unit]
+Description="Coturn TURN/STUN server"
+After=network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory={{service.user_home}}
+User={{service.user}}
+Group={{service.group}}
+
+TimeoutSec=300
+
+Environment=CFG_PATH={{service.config_path}}/{{service.config_filename}}
+ExecStart={{service.user_home}}/turnserver-{{coturn.version}}/bin/turnserver -c ${CFG_PATH}
+
+[Install]
+WantedBy=multi-user.target

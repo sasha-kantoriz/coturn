@@ -1,0 +1,7 @@
+---
+# handlers file for coturn
+- name: Start TurnServer
+  systemd:
+    name: "{{service.name}}"
+    state: started
+    enabled: "{{service.enable}}"

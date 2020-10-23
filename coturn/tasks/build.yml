@@ -1,0 +1,18 @@
+---
+- name: "Download package"
+  get_url:
+    url: "https://coturn.net/turnserver/v{{coturn.version}}/turnserver-{{coturn.version}}.tar.gz"
+    dest: "/tmp/turnserver-{{coturn.version}}.tar.gz"
+- name: "Extract package"
+  unarchive:
+    src: "/tmp/turnserver-{{coturn.version}}.tar.gz"
+    dest: "{{service.user_home}}/"
+    remote_src: yes
+- name: "Configure build parameters of package"
+  shell: '/bin/bash -c "cd {{service.user_home}}/turnserver-{{coturn.version}}; ./configure"'
+- name: "Build package"
+  shell: '/bin/bash -c "cd {{service.user_home}}/turnserver-{{coturn.version}}; make && make install"'
+  notify:
+    - "Start TurnServer"
+- name: "Generate certificate for package"
+  shell: 'openssl req -x509 -newkey rsa:4096 -keyout {{service.user_home}}/turnserver-{{coturn.version}}/{{coturn.private_key_fname}} -out {{service.user_home}}/turnserver-{{coturn.version}}/{{coturn.certificate_fname}} -days 365 -nodes -subj "/CN={{coturn.external_ip}}"'

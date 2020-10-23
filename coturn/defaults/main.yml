@@ -1,0 +1,25 @@
+---
+# defaults file for coturn
+coturn:
+  version: 4.5.1.3
+  realm: "north.gov"
+  external_ip: "52.59.253.99"
+  relay_addr: "172.31.35.169"
+  plain_listen_port: 3478
+  tls_listen_port: 5349
+  min_port: 10000
+  max_port: 20000
+  logs_path: "/var/log/turnserver.log"
+  static_auth_secret: north
+  # place at 'service.user_home'/turnserver/; by default generate self-signed certificates
+  certificate_fname: cert.pem
+  private_key_fname: key.pem
+
+service:
+  name: coturn
+  config_filename: turnserver.conf
+  config_path: /etc/coturn
+  user: turn
+  group: turn
+  user_home: /opt/turn
+  enable: yes

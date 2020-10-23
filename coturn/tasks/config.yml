@@ -1,0 +1,24 @@
+---
+- name: "Configuration directory"
+  file:
+    state: directory
+    path: "{{service.config_path}}"
+    owner: root
+    group: "{{service.group}}"
+    mode: 0755
+- name: "Configuration file"
+  template:
+    src: "turnserver.conf"
+    dest: "{{service.config_path}}/{{service.config_filename}}"
+    mode: 0644
+  notify:
+    - "Start TurnServer"
+- name: "Systemd service - unit file"
+  template:
+    src: "turnserver.service"
+    dest: "/etc/systemd/system/{{service.name}}.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - "Start TurnServer"

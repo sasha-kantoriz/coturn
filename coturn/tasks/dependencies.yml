@@ -1,0 +1,23 @@
+---
+- name: "Install system packages"
+  raw: yum install -y libevent-devel libhiredis-devel openssl-devel make gcc
+- name: "Install system packages"
+  yum:
+    state: present
+    name:
+      - libevent-devel
+      - libhiredis-devel
+      - openssl-devel
+      - gcc
+      - make
+  when: ansible_facts['distribution'] == 'Amazon Linux 2' or ansible_facts['distribution'] == 'CentOS' or ansible_facts['distribution'] == 'Fedora' or ansible_facts['distribution'] | lower == 'rhel'
+- name: "Install system packages"
+  apt:
+    state: present
+    name:
+      - libevent-dev
+      - libhiredis-dev
+      - libssl-dev
+      - gcc
+      - make
+  when: ansible_facts['distribution'] == 'Debian' or ansible_facts['distribution'] == 'Ubuntu'

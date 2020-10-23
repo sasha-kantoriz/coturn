@@ -1,0 +1,10 @@
+---
+# tasks file for coturn
+- name: "Add group/user"
+  include: user.yml
+- name: "Install system packages"
+  include: dependencies.yml
+- name: "Install package"
+  include: build.yml
+- name: "Configure package"
+  include: config.yml

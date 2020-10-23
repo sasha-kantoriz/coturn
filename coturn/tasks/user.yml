@@ -1,0 +1,12 @@
+---
+- name: "Add dedicated user group"
+  group:
+    name: "{{service.group}}"
+    state: present
+- name: "Add dedicated user"
+  user:
+    name: "{{service.user}}"
+    state: present
+    create_home: yes
+    group: "{{service.group}}"
+    home: "{{service.user_home}}"
