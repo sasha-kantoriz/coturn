@@ -1,0 +1,8 @@
+---
+- hosts: turn
+  become: true
+  become_user: root
+  vars_files: []
+  roles:
+    - role: coturn
+      vars: {}
